@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie_Med
       objectReference: {fileID: 0}
+    - target: {fileID: 4536486131753261783, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3182
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536486131753261783, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3182
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536486131753261783, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3182
+      objectReference: {fileID: 0}
     - target: {fileID: 5199519643410303621, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -40,6 +52,10 @@ PrefabInstance:
       propertyPath: clips.Array.data[4]
       value: 
       objectReference: {fileID: 8300000, guid: 1a97eb5cb0c8441429e9b0b65b67e6a3, type: 3}
+    - target: {fileID: 6025765267740251015, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7694597172500348128, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -83,6 +99,34 @@ PrefabInstance:
     - target: {fileID: 7694597172500348128, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709206359107921934, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3125
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939234143185319140, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1856
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939234143185319140, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1856
+      objectReference: {fileID: 0}
+    - target: {fileID: 7939234143185319140, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1856
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475250444368444367, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1856
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475250444368444367, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1856
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475250444368444367, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1856
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

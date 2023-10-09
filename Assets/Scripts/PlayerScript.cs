@@ -97,7 +97,7 @@ public class PlayerScript : MonoBehaviour
             {
                 // do nothing
             }
-            Debug.Log(rb.velocity.magnitude);
+            //Debug.Log(rb.velocity.magnitude);
         }
         // TODO: Implement a flashlight feature
         //if (Input.GetKeyDown(KeyCode.F))

@@ -45,17 +45,20 @@ public class GunManager : MonoBehaviour
         ammoDisplay.rectTransform.position = Input.mousePosition;
     }
 
+    public void ChangeAmmoAmount(int _delta) {
+        pistolAmmoCount += _delta;
+        ammoDisplay.text = pistolAmmoCount.ToString();
+    }
+
     public void Shoot()
     {
         if (pistolAmmoCount <= 0 || !hasPistol)
             return;
-        pistolAmmoCount--;
+        ChangeAmmoAmount(-1);
         if(gunSound != null){
 			Instantiate(gunSound);
 		}
         
-        ammoDisplay.text = pistolAmmoCount.ToString();
-
         OnGunFired?.Invoke(this, EventArgs.Empty);
 
         lastGunshotTransform.localPosition = PlayerScript.Instance.transform.localPosition;

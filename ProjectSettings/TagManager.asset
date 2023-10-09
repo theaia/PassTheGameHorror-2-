@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Cog
   - Dot
+  - Ammo
   layers:
   - Default
   - TransparentFX
