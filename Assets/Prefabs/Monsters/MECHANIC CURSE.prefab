@@ -2186,7 +2186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: clips.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: playerSightRange
@@ -2211,7 +2211,11 @@ PrefabInstance:
     - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: clips.Array.data[4]
       value: 
-      objectReference: {fileID: 8300000, guid: 1a97eb5cb0c8441429e9b0b65b67e6a3, type: 3}
+      objectReference: {fileID: 8300000, guid: 1289c33c19b63864197c8959d15432c8, type: 3}
+    - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: clips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 40a9cf5c4c283d24888829a31ee89b59, type: 3}
     - target: {fileID: 7346242259286662759, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: m_Radius
       value: 1.88
@@ -2222,7 +2226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7694597172500348128, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7694597172500348128, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: m_LocalPosition.x

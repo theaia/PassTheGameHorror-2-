@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: clips.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: playerSightRange
@@ -91,7 +91,15 @@ PrefabInstance:
     - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: clips.Array.data[4]
       value: 
-      objectReference: {fileID: 8300000, guid: 1a97eb5cb0c8441429e9b0b65b67e6a3, type: 3}
+      objectReference: {fileID: 8300000, guid: fad3fd98f523138499900b33f821e9b4, type: 3}
+    - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: clips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: c7cb7b5d10695724cab9b276df74d26d, type: 3}
+    - target: {fileID: 5425140817290587748, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
+      propertyPath: clips.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: c7cb7b5d10695724cab9b276df74d26d, type: 3}
     - target: {fileID: 6025765267740251015, guid: 66821f4209787aa48beddf68daf126a1, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.61993

@@ -77,6 +77,8 @@ public class ZombieScript : MonoBehaviour
         {
             camAnim.SetTrigger("shake");
             GetComponent<Animator>().SetTrigger("OnDeath");
+            source.clip = clips[Random.Range(4, 6)];
+            source.Play();
             dead = true;
         }
     }
