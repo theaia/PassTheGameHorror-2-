@@ -15,5 +15,8 @@ public class CommandPrompt : MonoBehaviour {
             lineText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
+
+        TMPCorruptor.TMPCorruptor _corrupter = lineText.GetComponent<TMPCorruptor.TMPCorruptor>();
+        if (_corrupter) _corrupter.enabled = true;
     }
 }

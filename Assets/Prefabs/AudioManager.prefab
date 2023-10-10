@@ -50,7 +50,12 @@ MonoBehaviour:
   musicSource: {fileID: 1417696176020771812}
   SFXSource:
   - {fileID: 1417696176860280231}
-  sound: []
+  sound:
+  - {fileID: 8300000, guid: 06fb07dddca53964abc4edd860acd960, type: 3}
+  - {fileID: 8300000, guid: 0282d6e3c4b08554a9f1f2e98fdc7f18, type: 3}
+  - {fileID: 8300000, guid: 17e2e403bf5576e4ebe7709c32c3250f, type: 3}
+  - {fileID: 8300000, guid: 2263ff1b2b57c754ead460ea0bde5d49, type: 3}
+  - {fileID: 8300000, guid: b055e1e7d3440a343b1c2d61ca849abf, type: 3}
   music: []
 --- !u!1 &1417696176020771813
 GameObject:

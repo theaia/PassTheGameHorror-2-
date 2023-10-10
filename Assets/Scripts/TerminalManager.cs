@@ -1,13 +1,16 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class TerminalManager : MonoBehaviour {
     public static TerminalManager Instance;
+    public int Corruption;
+    [SerializeField] private string LoseScene;
+    [SerializeField] private string WinScene;
     [SerializeField] private string[] words;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI guessesText;
@@ -18,11 +21,13 @@ public class TerminalManager : MonoBehaviour {
     [SerializeField] private TerminalButtonAnswer answerPrefab;
     [SerializeField] private TerminalButton randomButtonPrefab;
     [SerializeField] private CommandPrompt commandPromptPrefab;
+    [SerializeField] private GameObject happyGameObject;
+    [SerializeField] private GameObject sadGameObject;
     private string answer = "";
     
-    private float timer = 30;
+    private float timer = 45;
     private bool tickTimer;
-    private int guesses = 4;
+    private int guesses = 5;
 
     private void Awake() {
         if(Instance != null) {
@@ -33,6 +38,7 @@ public class TerminalManager : MonoBehaviour {
         Instance = this;
         
         PopulateGuesses();
+        UpdateRemainingGuesses();
     }
 
     private void Start() {
@@ -42,6 +48,15 @@ public class TerminalManager : MonoBehaviour {
     private void PopulateGuesses() {
         int _halfWords = words.Length / 2;
 
+        // Shuffle the words using Fisher-Yates shuffle
+        System.Random rng = new System.Random();
+        for (int i = words.Length - 1; i > 0; i--) {
+            int j = rng.Next(i + 1);
+            string temp = words[i];
+            words[i] = words[j];
+            words[j] = temp;
+        }
+        
         // Instantiate answers after adding random characters
         for (int i = 0; i < words.Length; i++) {
             bool _isLeft = i < _halfWords;
@@ -81,7 +96,7 @@ public class TerminalManager : MonoBehaviour {
             if (isBeforeAnswer) {
                 _randomButton.transform.SetSiblingIndex(randomAnswer.transform.GetSiblingIndex());
             } else {
-                _randomButton.transform.SetSiblingIndex(randomAnswer.transform.GetSiblingIndex() + _answers.Count + 1);
+                _randomButton.transform.SetSiblingIndex(randomAnswer.transform.GetSiblingIndex() + _answers.Count);
             }
         }
     }
@@ -92,7 +107,7 @@ public class TerminalManager : MonoBehaviour {
             if (timer <= 0f) {
                 tickTimer = false;
                 UpdateTimer(0);
-                Lose();
+                StartCoroutine(Lose());
             }
         }
     }
@@ -134,22 +149,26 @@ public class TerminalManager : MonoBehaviour {
 
         //Change Guesses
         guesses--;
+        UpdateRemainingGuesses();
+
+        if (guesses <= 0) {
+            StartCoroutine(Lose());
+        }
+        if(AudioManager.Instance) AudioManager.Instance.PlaySound("CPUSubmit", .25f);
+        CommandPrompt _commandPrompt = Instantiate(commandPromptPrefab, consolePromptContainer);
+        _commandPrompt.SetText($"{_value} (Match {_matchingText}/{answer.Length})");
+        if (_matchingText == answer.Length) {
+            StartCoroutine(Win());
+        }
+    }
+
+    private void UpdateRemainingGuesses() {
         string _guessesText = "";
         for (int i = 0; i < guesses; i++) {
             _guessesText += "■";
         }
 
         guessesText.text = _guessesText;
-
-        if (guesses <= 0) {
-            Lose();
-        }
-        if(AudioManager.Instance) AudioManager.Instance.PlaySound("CPUSubmit", .25f);
-        CommandPrompt _commandPrompt = Instantiate(commandPromptPrefab, consolePromptContainer);
-        _commandPrompt.SetText($"{_value} (Match {_matchingText}/{answer.Length})");
-        if (_matchingText == answer.Length) {
-            Win();
-        }
     }
 
     private void UpdateTimer(float _newValue) {
@@ -176,12 +195,22 @@ public class TerminalManager : MonoBehaviour {
         return matchingCount;
     }
 
-    public void Win() {
-        Debug.Log("Win!");
+    IEnumerator Win() {
+        yield return new WaitForSeconds(1f);
+        transform.GetChild(0).gameObject.SetActive(false);
+        happyGameObject.SetActive(true);
+        if(AudioManager.Instance) AudioManager.Instance.PlaySound("CPUWin", .25f);
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(WinScene);
     }
     
-    public void Lose() {
-        Debug.Log("Lost!");
+    IEnumerator Lose() {
+        yield return new WaitForSeconds(1f);
+        transform.GetChild(0).gameObject.SetActive(false);
+        sadGameObject.SetActive(true);
+        if(AudioManager.Instance) AudioManager.Instance.PlaySound("CPUFail", .25f);
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(LoseScene);
     }
 
     string FormatTime(float seconds) {
