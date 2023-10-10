@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CommandPrompt : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI lineText;
-    private float typingSpeed = 0.05f;
+    private float typingSpeed = 0.025f;
 
     public void SetText(string _value) {
         StartCoroutine(TypeText(_value));

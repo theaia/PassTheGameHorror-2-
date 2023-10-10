@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 public class TerminalManager : MonoBehaviour {
     public static TerminalManager Instance;
@@ -11,7 +13,10 @@ public class TerminalManager : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI guessesText;
     [SerializeField] private GameObject leftScramble, rightScramble;
     [SerializeField] private Transform consolePromptContainer;
+    private List<TerminalButtonAnswer> answersLeft = new List<TerminalButtonAnswer>();
+    private List<TerminalButtonAnswer> answersRight = new List<TerminalButtonAnswer>();
     [SerializeField] private TerminalButtonAnswer answerPrefab;
+    [SerializeField] private TerminalButton randomButtonPrefab;
     [SerializeField] private CommandPrompt commandPromptPrefab;
     private string answer = "";
     
@@ -26,10 +31,59 @@ public class TerminalManager : MonoBehaviour {
         }
         
         Instance = this;
+        
+        PopulateGuesses();
     }
 
     private void Start() {
         tickTimer = true;
+    }
+
+    private void PopulateGuesses() {
+        int _halfWords = words.Length / 2;
+
+        // Instantiate answers after adding random characters
+        for (int i = 0; i < words.Length; i++) {
+            bool _isLeft = i < _halfWords;
+            TerminalButtonAnswer _termAns = Instantiate(answerPrefab, _isLeft ? leftScramble.transform : rightScramble.transform);
+            _termAns.CreateTerminalAnswer(words[i]);
+            if (i < _halfWords) {
+                answersLeft.Add(_termAns);
+            } else {
+                answersRight.Add(_termAns);
+            }
+        }
+        
+        FillScrambleWithRandom(true);
+        FillScrambleWithRandom(false);
+    }
+
+    private void FillScrambleWithRandom(bool _isLeft) {
+        int _halfWords = words.Length / 2;
+        int _characterCount = words[0].Length;
+        int _charactersNeeded = 120 - (_characterCount * _halfWords); // Subtract the characters in answers
+
+        Transform _parent = _isLeft ? leftScramble.transform : rightScramble.transform;
+        List<TerminalButtonAnswer> _answers = _isLeft ? answersLeft : answersRight;
+        
+        for (int i = 0; i < _charactersNeeded; i++) {
+            GameObject _randomButton = Instantiate(randomButtonPrefab.gameObject, _parent);
+            _randomButton.transform.localScale = Vector3.one;
+            
+            // Get random value from _answers
+            int randomAnswerIndex = Random.Range(0, _answers.Count);
+            TerminalButtonAnswer randomAnswer = _answers[randomAnswerIndex];
+
+            // Get random bool representing beginning/end
+            bool isBeforeAnswer = Random.value < 0.5f;
+
+            // Set the index of _randomButton relative to _answers Sibling index
+            if (isBeforeAnswer) {
+                _randomButton.transform.SetSiblingIndex(randomAnswer.transform.GetSiblingIndex());
+            } else {
+                _randomButton.transform.SetSiblingIndex(randomAnswer.transform.GetSiblingIndex() + _answers.Count + 1);
+            }
+        }
     }
 
     public void Update() {
@@ -91,10 +145,8 @@ public class TerminalManager : MonoBehaviour {
             Lose();
         }
         if(AudioManager.Instance) AudioManager.Instance.PlaySound("CPUSubmit", .25f);
-        CommandPrompt _commandPrompt2 = Instantiate(commandPromptPrefab, consolePromptContainer);
-        _commandPrompt2.SetText($"Similarity {_matchingText}/{answer.Length}");
         CommandPrompt _commandPrompt = Instantiate(commandPromptPrefab, consolePromptContainer);
-        _commandPrompt.SetText($"{_value}");
+        _commandPrompt.SetText($"{_value} (Match {_matchingText}/{answer.Length})");
         if (_matchingText == answer.Length) {
             Win();
         }

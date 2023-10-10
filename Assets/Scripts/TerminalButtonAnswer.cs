@@ -14,14 +14,19 @@ public class TerminalButtonAnswer : MonoBehaviour {
 	[SerializeField] private TerminalButton prefab;
 	private List<TerminalButton> connectedButtons = new List<TerminalButton>();
 	
-	private void CreateTerminalAnswer(string _value) {
+	public void CreateTerminalAnswer(string _value) {
 		representativeString = _value;
+		text.text = _value[0].ToString();
 		for (int i = 1; i < representativeString.Length; i++) {
 			TerminalButton _terminalButton = Instantiate(prefab, transform.parent);
 			connectedButtons.Add(_terminalButton);
 			_terminalButton.transform.SetSiblingIndex(transform.GetSiblingIndex()+i);
 			_terminalButton.SetupCharacter(representativeString[i].ToString(), this);
 		}
+	}
+
+	public int Length() {
+		return representativeString.Length;
 	}
 
 	public void PartMousedOver(TerminalButton _sender = null) {
