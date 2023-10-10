@@ -96,7 +96,7 @@ public class TerminalManager : MonoBehaviour {
             if (isBeforeAnswer) {
                 _randomButton.transform.SetSiblingIndex(randomAnswer.transform.GetSiblingIndex());
             } else {
-                _randomButton.transform.SetSiblingIndex(randomAnswer.transform.GetSiblingIndex() + _answers.Count);
+                _randomButton.transform.SetSiblingIndex(randomAnswer.transform.GetSiblingIndex() + _characterCount);
             }
         }
     }
