@@ -49,8 +49,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject jumpSound;
     public GameObject jumpEffect;
 
-    private void Awake()
-    {
+    private void Awake() {
         Instance = this;
     }
 

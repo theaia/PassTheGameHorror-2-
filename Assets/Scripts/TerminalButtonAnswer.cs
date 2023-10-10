@@ -13,12 +13,9 @@ public class TerminalButtonAnswer : MonoBehaviour {
 	[SerializeField] private string representativeString;
 	[SerializeField] private TerminalButton prefab;
 	private List<TerminalButton> connectedButtons = new List<TerminalButton>();
-
-	private void Awake() {
-		CreateTerminalAnswer();
-	}
-
-	private void CreateTerminalAnswer() {
+	
+	private void CreateTerminalAnswer(string _value) {
+		representativeString = _value;
 		for (int i = 1; i < representativeString.Length; i++) {
 			TerminalButton _terminalButton = Instantiate(prefab, transform.parent);
 			connectedButtons.Add(_terminalButton);
@@ -32,6 +29,7 @@ public class TerminalButtonAnswer : MonoBehaviour {
 		Color _color = background.color;
 		_color.a = 1f;
 		background.color = _color;
+		if (AudioManager.Instance) AudioManager.Instance.PlaySound("MouseEnter", .15f, Random.Range(.9f, 1f));
 		foreach (TerminalButton _button in connectedButtons) {
 			if(_button != _sender) _button.MouseOver(true);
 		}
@@ -42,6 +40,19 @@ public class TerminalButtonAnswer : MonoBehaviour {
 		Color _color = background.color;
 		_color.a = 0f;
 		background.color = _color;
+		foreach (TerminalButton _button in connectedButtons) {
+			if(_button != _sender) _button.MouseOff(true);
+		}
+	}
+	
+	public void PartMousedDown(TerminalButton _sender = null) {
+		text.color = standardColor;
+		Color _color = background.color;
+		_color.a = 0f;
+		background.color = _color;
+
+		TerminalManager.Instance.ProcessGuess(representativeString);
+		
 		foreach (TerminalButton _button in connectedButtons) {
 			if(_button != _sender) _button.MouseOff(true);
 		}
@@ -72,6 +83,8 @@ public class TerminalButtonAnswer : MonoBehaviour {
 		Color _color = background.color;
 		_color.a = 0f;
 		background.color = _color;
+		
+		if(TerminalManager.Instance) TerminalManager.Instance.ProcessGuess(representativeString);
 		/*foreach (TerminalButton _button in connectedButtons) {
 		    OnMouseDown();
 		}*/

@@ -36,7 +36,11 @@ public class TerminalButton : MonoBehaviour {
         _color.a = 1f;
         background.color = _color;
 
-        if(!_distributed && parentButton) parentButton.PartMousedOver(this);
+        if (!_distributed && parentButton) {
+            parentButton.PartMousedOver(this);
+        } else {
+            if (AudioManager.Instance) AudioManager.Instance.PlaySound("MouseEnter", .15f, Random.Range(.9f, 1f));
+        }
     }
 
     public void MouseOff(bool _distributed) {
@@ -44,8 +48,10 @@ public class TerminalButton : MonoBehaviour {
         Color _color = background.color;
         _color.a = 0f;
         background.color = _color;
-        
-        if(!_distributed && parentButton) parentButton.PartMousedOff(this);
+
+        if (!_distributed && parentButton) {
+            parentButton.PartMousedOff(this);
+        }
         /*if (IsParent) {
             foreach (TerminalButton _button in connectedButtons) {
                 if(_button != _sender) _button.MouseOff();
@@ -55,13 +61,15 @@ public class TerminalButton : MonoBehaviour {
         }*/
     }
     
-    public void MouseDown(TerminalButton _sender = null) {
+    public void MouseDown(bool _distributed) {
         text.color = standardColor;
         Color _color = background.color;
         _color.a = 0f;
         background.color = _color;
-        /*foreach (TerminalButton _button in connectedButtons) {
-            OnMouseDown();
-        }*/
+        if (!_distributed && parentButton) {
+            parentButton.PartMousedDown(this);
+        } else {
+            if(TerminalManager.Instance) TerminalManager.Instance.ProcessGuess(text.text);
+        }
     }
 }
